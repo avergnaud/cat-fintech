@@ -1,3 +1,6 @@
+
+See https://medium.com/@johnny02/how-to-add-font-awesome-to-a-gatsby-site-89da940924d5
+
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
 <p align="center">
   <a href="https://www.gatsbyjs.org">

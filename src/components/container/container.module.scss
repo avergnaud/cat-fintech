@@ -1,0 +1,94 @@
+
+$breakpoint-large: 768px;
+
+.headerRow {
+    height: 60px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.catamaniaHome {
+    background-image: none;
+    border-right: 1px solid #E4E5E7;
+    display: flex;
+    
+    max-width: 50%;
+    flex: 0 0 50%;
+    
+    justify-content: center;
+    height: 60px;
+    padding: 0;
+}
+
+.catamaniaLogo {
+    margin: 0;
+
+    /*
+    */
+height: 40px;
+align-self: center;
+
+}
+
+.headerUl {
+    display: none;
+    align-items: center;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    font: inherit;
+    color: inherit;
+}
+
+.linkItem {
+    font-size: 14px;
+    font-weight: 900;
+    text-transform: uppercase;
+    padding: 0 20px;
+    margin: 0;
+    text-decoration: none;
+
+    a {
+        text-decoration: none;
+        background-image: none;
+        color: inherit;
+    }
+}
+
+.burger {
+    display: inline;
+    border: 0;
+    background-color: inherit;
+    padding: 0;
+}
+
+@media (min-width: $breakpoint-large) {
+
+    .headerRow {
+        height: 90px;
+        justify-content: inherit;
+    }
+
+    .catamaniaHome {
+        /*
+        max-width: 100%;
+        */
+        flex: 0 0 25%;
+        max-width: 25%;
+
+        height: 90px;
+    }
+
+    .catamaniaLogo {
+        height: auto;
+    }
+
+    .headerUl {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .burger {
+        display: none;
+    }
+}
