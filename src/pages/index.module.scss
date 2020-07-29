@@ -1,0 +1,61 @@
+@import '../common.scss';
+
+$index-front-height: 400px;
+
+.frontSection {
+    /*
+    display: flex;
+    align-items: center;
+    */
+}
+
+.parallax {
+
+  /* Set a specific height */
+  min-height: $index-front-height; 
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  /*background-size: cover;*/
+}
+
+.description {
+    position: absolute;
+    width: 90%;
+    height: $index-front-height - $mobile-header-height;
+    top: $mobile-header-height;
+    margin-left: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    div {
+        max-width: 75%;
+        color: #fff;
+        background-color: rgba(0,0,0,.5);
+        padding: 15px;
+        font-size: 3vmax;
+        line-height: 3vmax;
+        font-weight: 900;
+        text-transform: uppercase;
+        position: relative;
+        margin-bottom: 1vmax;
+    }
+    
+    hr {
+        width: 50%;
+        border: 1px solid #fff;
+        margin-left: 15px;
+    }
+}
+
+@media (min-width: $breakpoint-large) {
+
+    .description {
+        height: $index-front-height - $desktop-header-height;
+        top: $desktop-header-height;
+    }
+}

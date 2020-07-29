@@ -1,0 +1,16 @@
+.simuLine {
+    fill: none;
+    stroke: steelblue;
+    clip-path: url(#clip);
+  }
+  .simuBalanceLine {
+    fill: none;
+    stroke: #cfb53b;
+    clip-path: url(#clip);
+  }
+  
+  .simuZoom {
+    cursor: move;
+    fill: none;
+    pointer-events: all;
+  }

@@ -1,8 +1,14 @@
 
-$breakpoint-large: 768px;
+@import '../../common.scss';
+
+.header {
+    position: fixed;
+    z-index: 1000;
+    background: #fff;
+}
 
 .headerRow {
-    height: 60px;
+    height: $mobile-header-height;
     align-items: center;
     justify-content: space-between;
 }
@@ -16,7 +22,7 @@ $breakpoint-large: 768px;
     flex: 0 0 50%;
     
     justify-content: center;
-    height: 60px;
+    height: $mobile-header-height;
     padding: 0;
 }
 
@@ -112,7 +118,7 @@ align-self: center;
 @media (min-width: $breakpoint-large) {
 
     .headerRow {
-        height: 90px;
+        height: $desktop-header-height;
         justify-content: inherit;
     }
 
@@ -123,7 +129,7 @@ align-self: center;
         flex: 0 0 25%;
         max-width: 25%;
 
-        height: 90px;
+        height: $desktop-header-height;
     }
 
     .catamaniaLogo {

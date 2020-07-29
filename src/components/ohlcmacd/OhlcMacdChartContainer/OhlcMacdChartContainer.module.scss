@@ -1,0 +1,30 @@
+@import '../../../common.scss';
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: $breakpoint-large) {
+
+    .wrapper {
+        flex-direction: row;
+    }
+
+    .text {
+        width: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        p {
+            margin-bottom: 0;
+        }
+    }
+    .chart {
+        width: 70%;
+        padding: 0 50px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+    }
+}

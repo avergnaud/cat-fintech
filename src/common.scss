@@ -1,0 +1,44 @@
+$breakpoint-large: 768px;
+$mobile-header-height: 60px;
+$desktop-header-height: 90px;
+$mobile-dark-padding: 80px;
+$desktop-dark-padding: 180px;
+
+.darkSection {
+    padding-bottom: $mobile-dark-padding;
+    padding-top: $mobile-dark-padding;
+    background: #19212e;
+    margin-bottom: 1rem;
+    
+}
+
+.darkQuote {
+    font-family: "Roboto", sans-serif;
+    font-variant: none;
+    font-feature-settings: normal;
+    font-kerning: auto;
+    text-align: start;
+    text-decoration: rgb(255, 255, 255);
+    text-decoration-color: rgb(255, 255, 255);
+    text-decoration-line: none;
+    text-decoration-style: solid;
+    text-decoration-thickness: auto;
+    text-transform: none;
+    color: #fff;
+    font-weight: 100;
+    font-size: 28px;
+    line-height: 28px;
+}
+
+@media (min-width: $breakpoint-large) {
+
+    .darkSection {
+        padding-bottom: $desktop-dark-padding;
+        padding-top: $desktop-dark-padding;
+    }
+    
+    .darkQuote {
+        font-size: 35px;
+        line-height: 40px;
+    }
+}
