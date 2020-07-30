@@ -1,3 +1,5 @@
+@import '../../../common.scss';
+
 .simuLine {
     fill: none;
     stroke: steelblue;
@@ -13,4 +15,29 @@
     cursor: move;
     fill: none;
     pointer-events: all;
+  }
+
+  .customUl {
+    margin-left: 0;
+    font-size: 14px;
+
+    li {
+      padding: 0.25rem 0.5rem;
+      cursor: pointer;
+    }
+  }
+
+  .performance {
+    text-align: center;
+  }
+
+  @media (min-width: $breakpoint-large) {
+
+    .customUl {
+      font-size: 1rem;
+
+      li {
+        padding: .5rem 1.25rem;
+      }
+    }
   }

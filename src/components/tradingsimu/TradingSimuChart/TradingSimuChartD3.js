@@ -9,7 +9,6 @@ export class TradingSimuChartD3 {
     constructor(opts) {
 
         this.macdSimulation = new MacdSimulation();
-        //macdSimulation.test();
 
         this.config = opts.config;
         this.margin = this.config.margin;
@@ -25,6 +24,11 @@ export class TradingSimuChartD3 {
         this.simuLineClass = cssClasses.simuLine;
         this.simuBalanceLineClass = cssClasses.simuBalanceLine;
         this.simuZoomClass = cssClasses.simuZoom;
+
+        /* */
+        this.updateSignalsList = opts.updateSignalsList;
+        this.onSignalClick = opts.onSignalClick;
+        this.updatePerformance = opts.updatePerformance;
     }
 
     setElement(element) {
@@ -35,61 +39,11 @@ export class TradingSimuChartD3 {
 
         this.element.innerHTML = '';
 
-        this.svg = d3.select(this.element).append("svg")
-            .attr(
-                "viewBox",
-                `0 0 ${this.width + this.margin.left + this.margin.right} ${
-                this.height + this.margin.top + this.margin.bottom
-                }`
-            );
-
+        this.setupElements();
+                
         this.createScales(newData);
-
-        /* TODO : regrouper dans une function ? */
-        this.svg.append("defs")
-            .append("clipPath")
-            .attr("id", "clip")
-            .append("rect")
-            .attr("width", this.width)
-            .attr("height", this.height);
-
-        this.focus = this.svg
-            .append("g")
-            .attr("class", "focus")
-            .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
-
-        this.context = this.svg
-            .append("g")
-            .attr("class", "context")
-            .attr("transform", "translate(" + this.margin2.left + "," + this.margin2.top + ")");
-
-        this.identity = d3.zoomIdentity;
-        /* */
-
         this.addAxes();
 
-        /* TODO : regrouper dans une function ? */
-        this.brush = d3
-            .brushX()
-            .extent([
-                [0, 0],
-                [this.width, this.height2],
-            ])
-            .on("brush end", this.brushed.bind(this));
-
-        this.zoom = d3
-            .zoom()
-            .scaleExtent([1, Infinity])
-            .translateExtent([
-                [0, 0],
-                [this.width, this.height],
-            ])
-            .extent([
-                [0, 0],
-                [this.width, this.height],
-            ]);
-
-        /* ? */
         this.closingPriceLine1 = d3
             .line()
             .curve(d3.curveMonotoneX)
@@ -101,12 +55,9 @@ export class TradingSimuChartD3 {
             .curve(d3.curveMonotoneX)
             .x((d) => this.x2(d.date))
             .y((d) => this.y2(d.closingPrice));
-        
-        this.drawLegend();
 
         this.zoom.on("zoom", () => this.zoomed(newData));
 
-        /* */
         this.focus
             .append("path")
             .datum(newData)
@@ -148,8 +99,84 @@ export class TradingSimuChartD3 {
             .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")")
             .call(this.zoom);
 
-        /* ? calculer 1 an ? */
-        this.updateGraphs([this.width / 2, this.width]);
+        const now = new Date();
+        let oneYearBefore = new Date();
+        oneYearBefore = oneYearBefore.setFullYear( now.getFullYear() - 1 );
+        this.updateGraphs([this.x2(oneYearBefore), this.x2(now)]);
+    }
+
+
+    /**
+     * static elements (do not depend on newData)
+     */
+    setupElements() {
+        this.svg = d3.select(this.element).append("svg")
+            .attr(
+                "viewBox",
+                `0 0 ${this.width + this.margin.left + this.margin.right} ${
+                this.height + this.margin.top + this.margin.bottom
+                }`
+            );
+
+            this.svg.append("defs")
+                .append("clipPath")
+                .attr("id", "clip")
+                .append("rect")
+                .attr("width", this.width)
+                .attr("height", this.height);
+    
+            this.focus = this.svg
+                .append("g")
+                .attr("class", "focus")
+                .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")")
+                .on('signal-click', function(d, i){
+                    var signal = d3.event.detail
+                    d3.selectAll('circle.trading-event')
+                        .remove();
+                    let color = "red";
+                    if (signal.event === "BUY_SIGNAL") {
+                        color = "green";
+                    }
+                    d3.select(this)
+                        .append("circle")
+                        .attr("id", signal.id)
+                        .attr("class", "trading-event")
+                        .attr("cx", () => signal.x)
+                        .attr("cy", () => signal.y)
+                        .attr("r", 10)
+                        .style("fill", color)
+                        .style("fill-opacity", 0.4)
+                        .style("stroke", color);
+                  });
+    
+            this.context = this.svg
+                .append("g")
+                .attr("class", "context")
+                .attr("transform", "translate(" + this.margin2.left + "," + this.margin2.top + ")");
+    
+            this.identity = d3.zoomIdentity;
+            
+            this.brush = d3
+                .brushX()
+                .extent([
+                    [0, 0],
+                    [this.width, this.height2],
+                ])
+                .on("brush end", this.brushed.bind(this));
+    
+            this.zoom = d3
+                .zoom()
+                .scaleExtent([1, Infinity])
+                .translateExtent([
+                    [0, 0],
+                    [this.width, this.height],
+                ])
+                .extent([
+                    [0, 0],
+                    [this.width, this.height],
+                ]);
+        
+                this.drawLegend();
     }
 
     createScales(data) {
@@ -232,16 +259,16 @@ export class TradingSimuChartD3 {
             .style("font-size", "1rem");
         this.svg
             .append("line")
-            .attr("x1", this.width - 105)
+            .attr("x1", this.width - 135)
             .attr("y1", this.legendOffset)
-            .attr("x2", this.width - 85)
+            .attr("x2", this.width - 115)
             .attr("y2", this.legendOffset)
             .style("stroke-width", 4)
             .style("stroke", "#cfb53b")
             .style("fill", "none");
         this.svg
             .append("text")
-            .attr("x", this.width - 80)
+            .attr("x", this.width - 110)
             .attr("y", this.legendOffset + 5)
             .text("Balance (base 100)")
             .style("font-size", "1rem");
@@ -252,8 +279,8 @@ export class TradingSimuChartD3 {
    * @param {*} s Array of two elements. Exemple [ 445, 890 ]
    */
   updateGraphs(s) {
-    /* set a new x scale domain */
-    this.x.domain(s.map(this.x2.invert, this.x2));
+    /* set a new x scale domain */debugger
+    this.x.domain(s.map(this.x2.invert, this.x2));/* [ Date Thu Jul 04 2019 02:00:00 GMT+0200 (heure d’été d’Europe centrale), Date Thu Jul 30 2020 02:00:00 GMT+0200 (heure d’été d’Europe centrale) ] */
     /* update the closingPriceLine1 and axis */
     this.focus.select(`.${this.simuLineClass}`).attr("d", this.closingPriceLine1);
     this.focus.select(".axis--x").call(this.xAxis);
@@ -348,17 +375,76 @@ zoom function to reflect the current zoom scale and transform.
             this.macdSimulation.performance(initialClosingPrice, finalClosingPrice)
         );
 
-        console.log(`botPerformance ${botPerformance}`);
-        console.log(`marketPerformance ${marketPerformance}`);
-
-        /* TODO sortir en callback ReactJS
-            document.getElementById(
-                "titre"
-            ).innerHTML = `profit ${botPerformance}% / market ${marketPerformance}%`;
-        */
+        this.updatePerformance(`profit ${botPerformance}% / market ${marketPerformance}%`);
 
        this.context.select(".brush").call(this.brush.move, this.x.range().map(t.invertX, t));
 
+       this.focus.selectAll("circle").remove();
+
+        let signalsList = [];
+        let visited = false;
+        /* trading events */
+        for (let item of visibleData) {
+            if (item.trading && item.trading.event) {
+
+                const itemDate = this.macdSimulation.formatDate(item.date);
+                const id = `${itemDate}_${item.trading.event}`;
+
+                let signal = {
+                    id: id,
+                    date: this.macdSimulation.formatDate(item.date),
+                    event: item.trading.event,
+                    amount: item.trading.cryptoBalance.toFixed(2),
+                    closingPrice: item.closingPrice.toFixed(2),
+                    payedFees: item.trading.payedFees.toFixed(2),
+                    balance: item.trading.balance.toFixed(2),
+                    x: this.x(item.date),
+                    y: this.y(item.closingPrice)
+                }
+                if(item.trading.quantitySold) {
+                    signal.quantitySold = item.trading.quantitySold.toFixed(2);
+                }
+                if(item.trading.amountSpent) {
+                    signal.amountSpent = item.trading.amountSpent.toFixed(2);
+                }
+                signalsList.push(signal);
+                let color = "red";
+                if (item.trading.event === "BUY_SIGNAL") {
+                    color = "green";
+                }
+
+                /* first one is highlighted */
+                const itemX = this.x(item.date);
+                const itemY = this.y(item.closingPrice);
+                if(!visited) {
+                    d3.selectAll('circle.trading-event')
+                        .remove();
+
+                    this.focus
+                        .append("circle")
+                        .attr("id", id)
+                        .attr("class", "trading-event")
+                        .attr("cx", () => itemX)
+                        .attr("cy", () => itemY)
+                        .attr("r", 10)
+                        .style("fill", color)
+                        .style("fill-opacity", 0.4)
+                        .style("stroke", color);
+
+                    visited = true;
+                }
+
+                /* dots on the graph */
+                this.focus
+                    .append("circle")
+                    .attr("id", id)
+                    .attr("cx", () => this.x(item.date))
+                    .attr("cy", () => this.y(item.closingPrice))
+                    .attr("r", 5)
+                    .style("fill", color);
+            }
+        }
+        this.updateSignalsList(signalsList);
     }
 
 }

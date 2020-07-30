@@ -3,6 +3,7 @@ $mobile-header-height: 60px;
 $desktop-header-height: 90px;
 $mobile-dark-padding: 80px;
 $desktop-dark-padding: 180px;
+$scrollable-div-height: 265px;
 
 .darkSection {
     padding-bottom: $mobile-dark-padding;
@@ -28,6 +29,16 @@ $desktop-dark-padding: 180px;
     font-weight: 100;
     font-size: 28px;
     line-height: 28px;
+}
+
+.fixedHeightContainer {
+    height: $scrollable-div-height;
+    margin: 20px 50px;
+    overflow:scroll;
+  }
+
+.scrollableContent {
+    min-height:101%;
 }
 
 @media (min-width: $breakpoint-large) {

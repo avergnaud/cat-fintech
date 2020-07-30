@@ -33,12 +33,12 @@ $index-front-height: 400px;
     justify-content: center;
 
     div {
-        max-width: 75%;
+        width: 100%;
         color: #fff;
         background-color: rgba(0,0,0,.5);
         padding: 15px;
-        font-size: 3vmax;
-        line-height: 3vmax;
+        font-size: 3.5vmax;
+        line-height: 4vmax;
         font-weight: 900;
         text-transform: uppercase;
         position: relative;
@@ -46,7 +46,7 @@ $index-front-height: 400px;
     }
     
     hr {
-        width: 50%;
+        width: 30%;
         border: 1px solid #fff;
         margin-left: 15px;
     }

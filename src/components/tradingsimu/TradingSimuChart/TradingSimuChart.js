@@ -1,10 +1,28 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
+import * as d3 from "d3";
 import { TradingSimuChartD3 } from "./TradingSimuChartD3";
 import styles from "./TradingSimuChart.module.scss";
 
 export default function TradingSimuChart(props) {
 
+    const [signalsList, setSignalsList] = useState([]);
+    const [performance, setPerformance] = useState("");
+
     const d3Container = useRef(null);
+
+    /* from d3 to this React component */
+    const updateSignalsList = (newList) => {
+        setSignalsList(newList);
+    };
+    const updatePerformance = (perf) => {
+        setPerformance(perf);
+    }
+
+    /* From this React component to d3 */
+    const onSignalClick = (event, signal) => {
+        event.preventDefault();
+        d3.selectAll('.focus').dispatch('signal-click', {detail: signal})
+    }
 
     const chart = new TradingSimuChartD3({
         config: props.visual,
@@ -12,7 +30,10 @@ export default function TradingSimuChart(props) {
             simuLine: styles.simuLine,
             simuBalanceLine: styles.simuBalanceLine,
             simuZoom: styles.simuZoom
-        }
+        },
+        updateSignalsList: updateSignalsList,
+        onSignalClick: onSignalClick,
+        updatePerformance: updatePerformance
     });
 
     useEffect(() => {
@@ -25,5 +46,44 @@ export default function TradingSimuChart(props) {
     // eslint-disable-next-line
     }, [props.data]);
 
-    return <div ref={d3Container}>Loading...</div>
+    const signals = signalsList.map(signal => {
+
+        let liClasses = "list-group-item";
+        let message = signal.date + ": ";
+        if(signal.event === "BUY_SIGNAL") {
+            liClasses += " list-group-item-success";
+            message += `Buying ${signal.amount}ETH for ${signal.closingPrice}€ `;
+        } else {
+            liClasses += " list-group-item-danger";
+            message += `Selling ${signal.quantitySold}ETH for ${signal.closingPrice}€ `;
+        }
+        message += `(payed fees ${signal.payedFees}€) `;
+        message += `. Balance: ${signal.balance}€ `;
+
+        return (
+            <li 
+                key={signal.date} 
+                className={liClasses}
+                onClick={e => onSignalClick(e, signal)}
+            >
+                {message}
+            </li>
+        );
+    });
+
+    return (
+        <React.Fragment>
+            <div className={styles.performance}>
+                <h5>{performance}</h5>
+            </div>
+            <div ref={d3Container}>Loading...</div>
+            <div className={styles.fixedHeightContainer}>
+                <div className={styles.scrollableContent}>
+                    <ul className={`${styles.customUl} list-group`}>
+                        {signals}
+                    </ul>
+                </div>
+            </div>
+        </React.Fragment>
+    )
 }

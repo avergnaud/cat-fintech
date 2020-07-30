@@ -24,6 +24,9 @@ export default function Home({ data }) {
           ))}
           <OhlcMacdChartContainer />
           <TradingSimuChartContainer />
+          <section>
+            Suite...
+          </section>
     </Container>
   )
 }

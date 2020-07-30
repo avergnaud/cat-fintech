@@ -47,6 +47,7 @@ export class MacdSimulation {
             eurBalance = cryptoBalance * item.closingPrice - payedFees;
             totalBalance = eurBalance;
             item.trading.quantitySold = cryptoBalance;
+            item.trading.amountSpent = null;
             cryptoBalance = 0;
             item.trading.event = 'SELL_SIGNAL';
           } else {
@@ -54,6 +55,7 @@ export class MacdSimulation {
             let payedFees = eurBalance * fees;
             item.trading.payedFees = payedFees;
             item.trading.amountSpent = eurBalance;
+            item.trading.quantitySold = null;
             eurBalance = eurBalance - payedFees;
             totalBalance = eurBalance;
             cryptoBalance = eurBalance / item.closingPrice;
