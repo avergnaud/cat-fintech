@@ -31,6 +31,19 @@
     text-align: center;
   }
 
+  .selectedBuy {
+    z-index: 2;
+    color: #fff;
+    background-color: green;
+    border-color: green;
+  }
+  .selectedSell {
+    z-index: 2;
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }
+
   @media (min-width: $breakpoint-large) {
 
     .customUl {

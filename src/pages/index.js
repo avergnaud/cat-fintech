@@ -3,6 +3,7 @@ import { graphql } from "gatsby"
 import Container from "../components/container/container"
 import OhlcMacdChartContainer from "../components/ohlcmacd/OhlcMacdChartContainer/OhlcMacdChartContainer"
 import TradingSimuChartContainer from "../components/tradingsimu/TradingSimuChartContainer/TradingSimuChartContainer"
+import TradingSimuStats from "../components/tradingsimu/TradingSimuStats/TradingSimuStats"
 import indexStyles from "./index.module.scss"
 
 export default function Home({ data }) {
@@ -24,9 +25,7 @@ export default function Home({ data }) {
           ))}
           <OhlcMacdChartContainer />
           <TradingSimuChartContainer />
-          <section>
-            Suite...
-          </section>
+          <TradingSimuStats />
     </Container>
   )
 }

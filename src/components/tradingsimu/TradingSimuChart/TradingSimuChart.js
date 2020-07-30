@@ -19,9 +19,22 @@ export default function TradingSimuChart(props) {
     }
 
     /* From this React component to d3 */
-    const onSignalClick = (event, signal) => {
+    const onSignalClick = (event, clickedSignal) => {
         event.preventDefault();
-        d3.selectAll('.focus').dispatch('signal-click', {detail: signal})
+        d3.selectAll('.focus').dispatch('signal-click', {detail: clickedSignal})
+
+        let newSignalsList = signalsList.filter(signal => signal.id !== clickedSignal.id);
+
+        newSignalsList.forEach(signal => signal.selected = false);
+        let newClickedSignal = {
+            ...clickedSignal,
+            selected: true
+        };
+        newSignalsList.push(newClickedSignal);
+        newSignalsList.sort(function(a,b) {
+            return new Date(a.date) - new Date(b.date);
+        })
+        setSignalsList(newSignalsList);
     }
 
     const chart = new TradingSimuChartD3({
@@ -52,11 +65,18 @@ export default function TradingSimuChart(props) {
         let message = signal.date + ": ";
         if(signal.event === "BUY_SIGNAL") {
             liClasses += " list-group-item-success";
+            if(signal.selected) {
+                liClasses += ` ${styles.selectedBuy}`;
+            }
             message += `Buying ${signal.amount}ETH for ${signal.closingPrice}€ `;
         } else {
             liClasses += " list-group-item-danger";
             message += `Selling ${signal.quantitySold}ETH for ${signal.closingPrice}€ `;
+            if(signal.selected) {
+                liClasses += ` ${styles.selectedSell}`;
+            }
         }
+        
         message += `(payed fees ${signal.payedFees}€) `;
         message += `. Balance: ${signal.balance}€ `;
 
