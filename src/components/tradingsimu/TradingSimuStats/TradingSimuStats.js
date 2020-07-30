@@ -10,10 +10,12 @@ export default function TradingSimuStats() {
     const [numberOfSims, setNumberOfSims] = useState(null);
     const [statMakeProfit, setStatMakeProfit] = useState(null);
     const [statBeatTheMarket, setStatBeatTheMarket] = useState(null);
-
-    const ms = new MacdSimulation();
+    const [avgMarketPerformance, setAvgMarketPerformance] = useState(null);
+    const [avgSimulationsPerformance, setAvgSimulationsPerformance] = useState(null);
 
     useEffect(() => {
+
+        const ms = new MacdSimulation();
         /* component did mount */
         fetch("https://macd-definition.herokuapp.com/macd/?macdDefinitionId=1")
             .then((data) => data.json())
@@ -29,14 +31,17 @@ export default function TradingSimuStats() {
 
                 setRangeFrom(ms.formatDate(macdData[0].date));
                 setRangeTo(ms.formatDate(macdData[macdData.length - 1].date));
-                setNumberOfSims(macdData.length - 365);
+                const nos = macdData.length - 365;
+                setNumberOfSims(nos);
 
                 let newSimulations = [];
                 const initialBalance = 100;
                 const fees = 0.0026;
                 let sumBeatMarket = 0;
                 let sumMakeProfit = 0;
-                for(let i = 0; i < macdData.length - 365; i++) {
+                let sumMarketPerformances = 0;
+                let sumSimulationsPerformances = 0;
+                for(let i = 0; i < nos; i++) {
                     let simulationData = macdData.slice(i, i + 365);
                     /* from, to */
                     const from = ms.formatDate(simulationData[0].date);
@@ -44,11 +49,13 @@ export default function TradingSimuStats() {
                     let totalBalance = ms.computeMacdSimulation(initialBalance, fees, simulationData);
                     /* simulation performance */
                     let simulationPerformance = ms.performance(initialBalance, totalBalance);
+                    sumSimulationsPerformances += simulationPerformance;
                     let formattedSimulationPerformance = ms.formatPerf(simulationPerformance) + '%';
                     /* market performance */
                     const initialClosingPrice = simulationData[0].closingPrice;
                     const finalClosingPrice = simulationData[simulationData.length - 1].closingPrice;
                     let marketPerformance = ms.performance(initialClosingPrice, finalClosingPrice);
+                    sumMarketPerformances += marketPerformance;
                     let formattedMarketPerformance = ms.formatPerf(marketPerformance) + '%';
                     /* beats the market */
                     let beatsTheMarket = false;
@@ -75,8 +82,27 @@ export default function TradingSimuStats() {
                 setStatMakeProfit(sumMakeProfit);
                 setStatBeatTheMarket(sumBeatMarket);
                 setSimulations(newSimulations);
+                const averageSimulationsPerformance = ms.formatPerf(
+                    (sumSimulationsPerformances / nos).toFixed(0)
+                ) + "%";
+                setAvgSimulationsPerformance(averageSimulationsPerformance);
+                const averageMarketPerformance = ms.formatPerf
+                    ((sumMarketPerformances / nos).toFixed(0)
+                ) + "%";
+                setAvgMarketPerformance(averageMarketPerformance);
             });
       }, []);
+
+      const simulationsRows = simulations.map((simulation, index) => (
+          <tr key={index}>
+              <td>{simulation.from}</td>
+              <td>{simulation.to}</td>
+              <td>{simulation.marketPerf}</td>
+              <td>{simulation.tradingPerf}</td>
+              <td>{simulation.beatsTheMarket.toString()}</td>
+              <td>{simulation.makesAProfit.toString()}</td>
+          </tr>
+      ));
 
     return (
         <React.Fragment>
@@ -98,12 +124,41 @@ export default function TradingSimuStats() {
                             Données de marché comprises entre {rangeFrom} et {rangeTo}
                         </p>
                         <p>
-                            {numberOfSims} simulations de 1 an de trading
+                            {numberOfSims} simulations de 1 an de trading :
+                            <ul>
+                                <li>{statBeatTheMarket} font mieux que le marché</li>
+                                <li>{statMakeProfit} font du profit</li>
+                            </ul>
                         </p>
-                        <ul>
-                            <li>{statBeatTheMarket} font mieux que le marché</li>
-                            <li>{statMakeProfit} font du profit</li>
-                        </ul>
+                        <p>
+                            Performances moyennes :
+                            <ul>
+                                <li>du marché : {avgMarketPerformance}</li>
+                                <li>du trading : {avgSimulationsPerformance}</li>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-12">
+                        <div className={styles.tableFixHeadContainer}>
+                            Détail :
+                            <table className={`${styles.tableFixHead} table table-sm`}>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">From</th>
+                                        <th scope="col">To</th>
+                                        <th scope="col">Market Perf</th>
+                                        <th scope="col">Trading Perf</th>
+                                        <th scope="col">Beats the market</th>
+                                        <th scope="col">Makes a profit</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="results-tbody">
+                                    {simulationsRows}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

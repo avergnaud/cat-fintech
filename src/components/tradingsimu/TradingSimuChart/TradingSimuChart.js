@@ -85,6 +85,7 @@ export default function TradingSimuChart(props) {
                 key={signal.date} 
                 className={liClasses}
                 onClick={e => onSignalClick(e, signal)}
+                onKeyDown={e => onSignalClick(e, signal)}
             >
                 {message}
             </li>

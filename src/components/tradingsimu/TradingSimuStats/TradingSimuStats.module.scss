@@ -1,1 +1,18 @@
-@import "../../../common.scss"
+@import "../../../common.scss";
+
+.tableFixHeadContainer {
+    overflow-y: auto; 
+    height: $scrollable-div-height;
+}
+
+.tableFixHead {
+
+    thead {
+
+        th {
+            position: sticky; 
+            top: 0;
+            background:#eee; 
+        }
+    }
+}
