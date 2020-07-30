@@ -121,22 +121,27 @@ export default function TradingSimuStats() {
                 <div className="row">
                     <div className="col-12">
                         <p>
-                            Données de marché comprises entre {rangeFrom} et {rangeTo}
+                            Données de marché comprises entre le {rangeFrom} et le {rangeTo}. 
+                            
                         </p>
                         <p>
-                            {numberOfSims} simulations de 1 an de trading :
-                            <ul>
-                                <li>{statBeatTheMarket} font mieux que le marché</li>
-                                <li>{statMakeProfit} font du profit</li>
-                            </ul>
+                            {numberOfSims} simulations de 1 an de trading.
                         </p>
-                        <p>
-                            Performances moyennes :
-                            <ul>
-                                <li>du marché : {avgMarketPerformance}</li>
-                                <li>du trading : {avgSimulationsPerformance}</li>
-                            </ul>
+                        <div className="jumbotron">
+                        <h5 class="display-5">Performance moyenne de trading
+                          &nbsp;<span class="badge badge-success">{avgSimulationsPerformance}</span>
+                        </h5>
+                        <p class="lead">
+                            contre {avgMarketPerformance} pour le marché
                         </p>
+                        <hr class="my-4"></hr>
+                            <div>
+                                <ul>
+                                    <li>{statBeatTheMarket} font mieux que le marché</li>
+                                    <li>{statMakeProfit} font du profit</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className="row">

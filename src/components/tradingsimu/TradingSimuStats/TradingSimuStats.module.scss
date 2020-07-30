@@ -6,6 +6,7 @@
 }
 
 .tableFixHead {
+    font-size: 12px;
 
     thead {
 
@@ -14,5 +15,12 @@
             top: 0;
             background:#eee; 
         }
+    }
+}
+
+@media (min-width: $breakpoint-large) {
+
+    .tableFixHead {
+        font-size: 1rem;
     }
 }
