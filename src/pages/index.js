@@ -16,10 +16,15 @@ export default function Home({ data }) {
                 style={{backgroundImage: `url(${node.image.file.url})`}}
               ></div>
               <div className={indexStyles.description}>
-                <div>
-                  {node.description.description}
+                <div className={indexStyles.titleContainer}>
+                  <div className={indexStyles.title}>
+                    {node.title}
+                  </div>
+                  <hr></hr>
+                  <div className={indexStyles.subtitle}>
+                    {node.subtitle}
+                  </div>
                 </div>
-                <hr></hr>
               </div>
             </section>
           ))}
@@ -43,9 +48,8 @@ export const query = graphql`
             }
           }
           id
-          description {
-            description
-          }
+          title
+          subtitle
         }
       }
     }

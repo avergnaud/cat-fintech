@@ -32,23 +32,30 @@ $index-front-height: 400px;
     align-items: flex-start;
     justify-content: center;
 
-    div {
+    div.titleContainer {
         width: 100%;
         color: #fff;
         background-color: rgba(0,0,0,.5);
-        padding: 15px;
-        font-size: 3.5vmax;
-        line-height: 4vmax;
-        font-weight: 900;
-        text-transform: uppercase;
+        padding: 40px;
         position: relative;
         margin-bottom: 1vmax;
+        
+        div.title {
+            font-size: 3.5vmax;
+            line-height: 4vmax;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        div.subtitle {
+            font-size: 2.5vmax;
+            line-height: 3vmax;
+        }
     }
     
     hr {
         width: 30%;
         border: 1px solid #fff;
-        margin-left: 15px;
     }
 }
 

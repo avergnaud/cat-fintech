@@ -284,7 +284,7 @@ export class TradingSimuChartD3 {
    * @param {*} s Array of two elements. Exemple [ 445, 890 ]
    */
   updateGraphs(s) {
-    /* set a new x scale domain */ debugger
+    /* set a new x scale domain */
     this.x.domain(
       s.map(this.x2.invert, this.x2)
     ) 

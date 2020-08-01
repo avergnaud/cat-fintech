@@ -132,7 +132,7 @@ export default function TradingSimuStats() {
                           &nbsp;<span class="badge badge-success">{avgSimulationsPerformance}</span>
                         </h5>
                         <p class="lead">
-                            contre {avgMarketPerformance} pour le marché
+                            contre <pan class="badge">{avgMarketPerformance}</pan> pour le marché
                         </p>
                         <hr class="my-4"></hr>
                             <div>

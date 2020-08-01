@@ -5,6 +5,10 @@ $mobile-dark-padding: 80px;
 $desktop-dark-padding: 180px;
 $scrollable-div-height: 265px;
 
+.firstSection {
+    margin-top: $mobile-header-height;
+}
+
 .darkSection {
     padding-bottom: $mobile-dark-padding;
     padding-top: $mobile-dark-padding;
@@ -27,8 +31,8 @@ $scrollable-div-height: 265px;
     text-transform: none;
     color: #fff;
     font-weight: 100;
-    font-size: 28px;
-    line-height: 28px;
+    font-size: 22px;
+    line-height: 22px;
 }
 
 .fixedHeightContainer {
@@ -42,6 +46,10 @@ $scrollable-div-height: 265px;
 }
 
 @media (min-width: $breakpoint-large) {
+
+    .firstSection {
+        margin-top: $desktop-header-height;
+    }
 
     .darkSection {
         padding-bottom: $desktop-dark-padding;
