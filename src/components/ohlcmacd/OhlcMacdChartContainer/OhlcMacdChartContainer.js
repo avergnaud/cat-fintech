@@ -101,12 +101,12 @@ export default function OhlcMacdChartContainer() {
               <div className="col-12">
                 <div className={containerStyles.wrapper}>
                   <div className={containerStyles.text}>
-                    <p
+                    <div
                       dangerouslySetInnerHTML={{
                         __html: data.contentfulMainSection.texteSecondaire.childMarkdownRemark.html,
                       }}
                     >
-                    </p>
+                    </div>
                   </div>
                   <div className={containerStyles.chart}>
                     <OhlcMacdChart data={tradingData} visual={visual} />
