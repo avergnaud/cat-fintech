@@ -7,16 +7,21 @@ import logo from "./logo.svg";
 
 const LinkItem = props => (
   <li className={containerStyles.linkItem}>
-    <Link to={props.to}>{props.children}</Link>
+    <Link 
+      to={props.to}
+      activeClassName={containerStyles.activeLink}
+    >
+      {props.children}
+    </Link>
   </li>
 )
 
 const NavMenuItems = props => (
   <React.Fragment>
     <LinkItem to="/">Home</LinkItem>
-    <LinkItem to="/about">A propos</LinkItem>
-    <LinkItem to="/contact">Contact</LinkItem>
-    <LinkItem to="/blog">Blog</LinkItem>
+    <LinkItem to="/about/">A propos</LinkItem>
+    <LinkItem to="/contact/">Contact</LinkItem>
+    <LinkItem to="/blog/">Blog</LinkItem>
   </React.Fragment>
 )
 

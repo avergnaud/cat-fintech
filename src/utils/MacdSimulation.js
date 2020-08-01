@@ -1,10 +1,6 @@
 
 export class MacdSimulation {
 
-    test() {
-        console.log("OhlcMacdChartD3.test")
-    }
-
     /*
     appends balance value to each item
     returns the total balance

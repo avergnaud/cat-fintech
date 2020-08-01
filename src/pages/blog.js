@@ -21,7 +21,7 @@ export default function Blog({data}) {
         <div>
           <ul>
             {data.allContentfulBlogPost.edges.map(edge => 
-              <BlogPost node={edge.node} />
+              <BlogPost key={edge.node.slug} node={edge.node} />
             )}
           </ul>
         </div>

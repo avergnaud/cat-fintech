@@ -55,7 +55,6 @@
     font-size: 14px;
     font-weight: 900;
     text-transform: uppercase;
-    padding: 0 20px;
     margin: 0;
     text-decoration: none;
 
@@ -117,6 +116,11 @@
     align-items: center;
 }
 
+.activeLink {
+    display: none;
+    padding: 0;
+}
+
 @media (min-width: $breakpoint-large) {
 
     .headerRow {
@@ -154,5 +158,9 @@
 
     .burgerButton {
         display: none;
+    }
+
+    .activeLink {
+        display: block;
     }
 }

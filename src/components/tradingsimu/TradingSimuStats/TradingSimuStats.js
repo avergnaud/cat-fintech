@@ -110,9 +110,14 @@ export default function TradingSimuStats() {
                 <div className="container">
                     <div className="row">
                         <div className="col-12 content quote">
-                            <p className={styles.darkQuote}>
-                                Résultats
-                            </p>
+                            <div className={styles.darkQuote}>
+                                <b>Résultats</b> avec des données de marché comprises entre :
+                                <ul style={{ margin: "25px 100px" }}>
+                                    <li>{rangeFrom}</li>
+                                    <li>et {rangeTo}</li>
+                                </ul>
+                                Pour {numberOfSims} simulations de 1 an de trading...
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -120,25 +125,18 @@ export default function TradingSimuStats() {
             <div className="container">
                 <div className="row">
                     <div className="col-12">
-                        <p>
-                            Données de marché comprises entre le {rangeFrom} et le {rangeTo}. 
-                            
-                        </p>
-                        <p>
-                            {numberOfSims} simulations de 1 an de trading.
-                        </p>
                         <div className="jumbotron">
-                        <h5 class="display-5">Performance moyenne de trading
-                          &nbsp;<span class="badge badge-success">{avgSimulationsPerformance}</span>
+                        <h5 className="display-5">Performance moyenne de trading
+                          &nbsp;<span className="badge badge-success">{avgSimulationsPerformance}</span>
                         </h5>
-                        <p class="lead">
-                            contre <pan class="badge">{avgMarketPerformance}</pan> pour le marché
+                        <p className="lead">
+                            contre <span className="badge">{avgMarketPerformance}</span> pour le marché
                         </p>
-                        <hr class="my-4"></hr>
+                        <hr className="my-4"></hr>
                             <div>
                                 <ul>
-                                    <li>{statBeatTheMarket} font mieux que le marché</li>
-                                    <li>{statMakeProfit} font du profit</li>
+                                    <li>{statBeatTheMarket} / {numberOfSims} font mieux que le marché</li>
+                                    <li>{statMakeProfit} / {numberOfSims} font du profit</li>
                                 </ul>
                             </div>
                         </div>

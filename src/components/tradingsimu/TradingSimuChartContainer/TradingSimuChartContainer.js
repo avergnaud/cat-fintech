@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react"
+import { StaticQuery, graphql } from "gatsby"
 import * as d3 from "d3"
 import TradingSimuChart from "../TradingSimuChart/TradingSimuChart"
 import containerStyles from "./TradingSimuChartContainer.module.scss"
 
 export default function TradingSimuChartContainer() {
 
-  const [data, setData] = useState([])
+  const [tradingData, setTradingData] = useState([])
 
   const visual = {
     margin: { top: 50, right: 30, bottom: 110, left: 40 },
@@ -25,12 +26,12 @@ export default function TradingSimuChartContainer() {
         /* skip the first incomplete items (before 12+26+9) */
         json = json.filter((item) => item.macdValue && item.signalValue);
 
-        let data = json.map((item) => ({
+        let jsonData = json.map((item) => ({
         ...item,
         date: new Date(item.timeEpochTimestamp * 1000),
         }));
 
-        setData(data)
+        setTradingData(jsonData)
       })
       .catch(err => {
         console.log(err)
@@ -38,25 +39,44 @@ export default function TradingSimuChartContainer() {
   }, []);
 
   return (
-    <React.Fragment>
-      <section className={`container-fluid ${containerStyles.darkSection}`}>
-          <div className="container">
-            <div className="row">
-              <div className="col-12 content quote">
-                <p className={containerStyles.darkQuote}>
-                  Simulation de trading...
-                </p>
+    <StaticQuery
+      query={graphql`
+        query {
+          contentfulMainSection(postId: { eq: 2 }) {
+            misEnAvant {
+              childMarkdownRemark {
+                html
+              }
+            }
+          }
+        }
+      `}
+      render={data => (
+        <React.Fragment>
+          <section className={`container-fluid ${containerStyles.darkSection}`}>
+              <div className="container">
+                <div className="row">
+                  <div className="col-12 content quote">
+                    <p 
+                      className={containerStyles.darkQuote}
+                      dangerouslySetInnerHTML={{
+                        __html: data.contentfulMainSection.misEnAvant.childMarkdownRemark.html,
+                      }}  
+                    >
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <div className="container">
+              <div className="row">
+                <div className="col-12">
+                  <TradingSimuChart data={tradingData} visual={visual} />
+                </div>
               </div>
             </div>
-          </div>
-        </section>
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <TradingSimuChart data={data} visual={visual} />
-            </div>
-          </div>
-        </div>
-    </React.Fragment>
+        </React.Fragment>
+      )}
+    />
   );
 }
