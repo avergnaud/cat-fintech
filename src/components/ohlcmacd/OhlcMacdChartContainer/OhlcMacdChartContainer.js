@@ -85,13 +85,13 @@ export default function OhlcMacdChartContainer() {
             <div className="container">
               <div className="row">
                 <div className="col-12 content quote">
-                  <p 
+                  <div 
                     className={containerStyles.darkQuote}
                     dangerouslySetInnerHTML={{
                       __html: data.contentfulMainSection.misEnAvant.childMarkdownRemark.html,
                     }}
                   >
-                  </p>
+                  </div>
                 </div>
               </div>
             </div>
