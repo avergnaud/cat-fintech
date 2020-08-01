@@ -13,7 +13,7 @@ const LinkItem = props => (
 
 const NavMenuItems = props => (
   <React.Fragment>
-    <LinkItem to="/">Fintech Home</LinkItem>
+    <LinkItem to="/">Home</LinkItem>
     <LinkItem to="/about">A propos</LinkItem>
     <LinkItem to="/contact">Contact</LinkItem>
     <LinkItem to="/blog">Blog</LinkItem>
@@ -40,7 +40,7 @@ export default function Container({ children }) {
         <div className={`row ${containerStyles.headerRow}`}>
           <a
             className={`col-3 ${containerStyles.catamaniaHome}`}
-            href="https://www.cat-amania.com"
+            href="#https://www.cat-amania.com"
             >
             <img 
               src={logo}

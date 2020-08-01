@@ -30,11 +30,12 @@
 .catamaniaLogo {
     margin: 0;
 
-    /*
-    */
-height: 40px;
-align-self: center;
+    /* temporaire POC : */
+    -webkit-filter: blur(5px);
+    filter: blur(5px);
 
+    height: 40px;
+    align-self: center;
 }
 
 .commonNav {
