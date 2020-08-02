@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "gatsby"
 import Container from "../components/container/container"
 import styles from "./about.module.scss"
 
@@ -58,6 +59,13 @@ export default function About() {
                 </a>
                 </li>
               </ul>
+            </div>
+            <div className="col-12">
+              Plus d'infos sur le <Link 
+                to="/blog/"
+              >
+                Blog
+              </Link>...  
             </div>
           </div>
         </div>

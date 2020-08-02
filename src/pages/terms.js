@@ -44,10 +44,7 @@ export default function About() {
                 réalisation et de son suivi : 
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item">
-                    Propriétaire : Adrien Vergnaud - 6 chemin des Coteaux 79370 Aigondigné
-                    </li>
-                    <li className="list-group-item">
-                        Responsable publication et Webmaster : Adrien Vergnaud – 
+                    Propriétaire, responsable publication et Webmaster : Adrien Vergnaud –&nbsp;
                         <Link 
                           to="/contact/"
                         >

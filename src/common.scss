@@ -31,9 +31,9 @@ $scrollable-div-height: 265px;
     text-decoration-thickness: auto;
     text-transform: none;
     color: #fff;
-    font-weight: 100;
     font-size: 22px;
     line-height: 24px;
+    font-weight: 100;
 }
 
 .fixedHeightContainer {
@@ -60,5 +60,7 @@ $scrollable-div-height: 265px;
     .darkQuote {
         font-size: 35px;
         line-height: 40px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
 }

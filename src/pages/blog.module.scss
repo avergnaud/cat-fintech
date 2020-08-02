@@ -1,1 +1,30 @@
 @import '../common.scss';
+
+.postWrapper {
+    margin: 40px;
+    padding: 1.5rem;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+.cardLink {
+    //text-shadow: none;
+}
+
+.previewImg {
+    width: 60px;
+    height: 60px;
+}
+
+.lireLink {
+    font-size: 1.5rem;
+}
+
+@media (min-width: $breakpoint-large) {
+
+    .previewImg {
+        width: 120px;
+        height: 120px;
+    }
+}
