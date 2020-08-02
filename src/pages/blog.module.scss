@@ -21,6 +21,11 @@
     font-size: 1.5rem;
 }
 
+.pubDate {
+    font-size: 0.75rem;
+    border-bottom: 1px solid lightgray;
+}
+
 @media (min-width: $breakpoint-large) {
 
     .previewImg {

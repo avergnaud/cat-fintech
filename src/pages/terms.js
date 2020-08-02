@@ -44,7 +44,7 @@ export default function About() {
                 réalisation et de son suivi : 
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item">
-                    Propriétaire, responsable publication et Webmaster : Adrien Vergnaud –&nbsp;
+                    Propriétaire, Responsable publication et Webmaster : Adrien Vergnaud –&nbsp;
                         <Link 
                           to="/contact/"
                         >

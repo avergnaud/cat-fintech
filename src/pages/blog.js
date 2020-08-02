@@ -15,6 +15,7 @@ const BlogPost = ({ node }) => {
         />
         <div className="media-body">
           <h5 className="mt-0">{node.title}</h5>
+          <span className={styles.pubDate}>{node.publishDate}</span>
           <p>{node.previewIntro}</p>
           <a 
             href="#" 
@@ -57,7 +58,7 @@ export const pageQuery = graphql`
       edges {
         node {
           title
-          publishDate
+          publishDate(formatString: "dddd MMMM Do yyyy")
           previewImage {
             file {
               url
