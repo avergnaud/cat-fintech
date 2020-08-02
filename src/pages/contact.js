@@ -22,20 +22,25 @@ export default function Contact() {
                     <label for="email">Votre adresse mail</label>
                     <input 
                       type="email" 
+                      name="email"
                       className="form-control" 
                       id="email" 
                       aria-describedby="emailHelp" 
-                      placeholder="Saisissez votre email">
-                    </input>
+                      placeholder="Saisissez votre email"
+                    ></input>
                   </div>
                   <div className="form-group">
                     <label for="message">Votre message</label>
-                    <textarea class="form-control" id="message" rows="5"></textarea>
+                    <textarea 
+                      name="message"
+                      class="form-control" 
+                      id="message" 
+                      rows="5"
+                    ></textarea>
                   </div>
                   
                     <button type="submit" className="btn btn-primary">Envoyer</button>
                 </form>
-
             </div>
           </div>
         </div>
