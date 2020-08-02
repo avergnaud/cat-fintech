@@ -20,8 +20,8 @@ const NavMenuItems = props => (
   <React.Fragment>
     <LinkItem to="/">Home</LinkItem>
     <LinkItem to="/about/">A propos</LinkItem>
-    <LinkItem to="/contact/">Contact</LinkItem>
     <LinkItem to="/blog/">Blog</LinkItem>
+    <LinkItem to="/contact/">Contact</LinkItem>
     <LinkItem to="/terms/">Mentions légales</LinkItem>
   </React.Fragment>
 )
