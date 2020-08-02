@@ -1,12 +1,13 @@
 $breakpoint-large: 768px;
 $mobile-header-height: 60px;
 $desktop-header-height: 90px;
+$first-section-margin: 50px;
 $mobile-dark-padding: 80px;
 $desktop-dark-padding: 180px;
 $scrollable-div-height: 265px;
 
 .firstSection {
-    margin-top: $mobile-header-height;
+    margin-top: $mobile-header-height + $first-section-margin;
 }
 
 .darkSection {
@@ -48,7 +49,7 @@ $scrollable-div-height: 265px;
 @media (min-width: $breakpoint-large) {
 
     .firstSection {
-        margin-top: $desktop-header-height;
+        margin-top: $desktop-header-height + $first-section-margin;
     }
 
     .darkSection {

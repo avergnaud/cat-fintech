@@ -22,6 +22,7 @@ const NavMenuItems = props => (
     <LinkItem to="/about/">A propos</LinkItem>
     <LinkItem to="/contact/">Contact</LinkItem>
     <LinkItem to="/blog/">Blog</LinkItem>
+    <LinkItem to="/terms/">Mentions légales</LinkItem>
   </React.Fragment>
 )
 
