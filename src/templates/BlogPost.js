@@ -8,6 +8,9 @@ import styles from "./BlogPost.module.scss"
 const richTextOptions = {
   renderNode: {
     [BLOCKS.EMBEDDED_ASSET]: node => {
+
+      if(!node.data.target.fields) return <div>erreur</div>
+      
       const { title, description, file } = node.data.target.fields
       const mimeType = file["en-US"].contentType
       const mimeGroup = mimeType.split("/")[0]
