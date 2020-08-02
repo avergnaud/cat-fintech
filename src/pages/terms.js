@@ -51,7 +51,7 @@ export default function About() {
                           Contact
                         </Link>    
                     </li>
-                    <li className="list-group-item">Hébergeur : Netlify – Dogpatch 94107 San Francisco, CA, USA</li>
+                    <li className="list-group-item">Hébergeur : Netlify – Dogpatch, San Francisco, CA, USA</li>
                     <li className="list-group-item">Délégué à la protection des données : Netlify DPO privacy@netlify.com</li>
                 </ul>
               </p>
