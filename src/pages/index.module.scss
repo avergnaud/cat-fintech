@@ -17,7 +17,8 @@ $index-front-height: 400px;
   /* Create the parallax scrolling effect */
   background-attachment: fixed;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-position: center;
+  background-size: inherit;
 }
 
 .description {
@@ -59,6 +60,10 @@ $index-front-height: 400px;
 }
 
 @media (min-width: $breakpoint-large) {
+
+    .parallax {
+        background-size: cover;
+      }
 
     .description {
         height: $index-front-height - $desktop-header-height;
