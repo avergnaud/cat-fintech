@@ -76,7 +76,6 @@ export const pageQuery = graphql`
   query blogPostQuery($slug: String!) {
     contentfulBlogPost(slug: { eq: $slug }) {
       title
-      publishDate
       slug
       content {
         json
