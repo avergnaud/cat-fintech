@@ -58,6 +58,7 @@ class BlogPost extends Component {
             <div className="row">
               <div className="col-12">
                 <h1>{contentfulBlogPost.title}</h1>
+                <h5>{contentfulBlogPost.publishDate}</h5>
                 {documentToReactComponents(
                   contentfulBlogPost.content.json,
                   richTextOptions
@@ -80,6 +81,7 @@ export const pageQuery = graphql`
       content {
         json
       }
+      publishDate
     }
   }
 `
